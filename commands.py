@@ -82,7 +82,7 @@ const sequelize = new Sequelize(Environments[process.env.NODE_ENV] ?? Default, {
 })();
 
 export default sequelize;''',
-    "Db.migrations.ts":'''import Db from './Db.config';
+    "Db.migrations.ts": '''import Db from './Db.config';
 
 function Migrations() {
     return (async () => {
@@ -92,7 +92,14 @@ function Migrations() {
     })();
 }
 
-export default Migrations();'''
+export default Migrations();''',
+    "Db.seeds.ts": '''// Here will be your seeds
+
+export default (async () => {
+
+    console.log('Seeds completed.');
+    return process.exit(0)
+})()'''
 }
 
 SrcList = [

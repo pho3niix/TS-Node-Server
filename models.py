@@ -22,16 +22,21 @@ def model(model, id):
 import Database from '../Config/Db.config';
 
 export interface I{capitalize} {{
-
+    {id}: string;
 }}
 
 class {capitalize} extends Model<InferAttributes<{capitalize}>, InferCreationAttributes<{capitalize}>>{{
-
+    declare {id}: string;
 }};
 
 {capitalize}.init(
     {{
-
+        {id}:{{
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            allowNull: false,
+            primaryKey: true
+        }}
     }},
     {{
         tableName: '{capitalize}',
@@ -68,8 +73,10 @@ if len(sys.argv) > 2:
     import_number = 1 + total_models
     migration_number = 5 + total_models
 
-    lines[import_number-1] += f'import {file} from "../Models/{file}.models";' +'\n'
-    lines[migration_number-1] += f"\t\tconsole.log('{file}', {file} == Db.models.{file});" +'\n'
+    lines[import_number -
+          1] += f'import {file} from "../Models/{file}.models";' + '\n'
+    lines[migration_number -
+          1] += f"\t\tconsole.log('{file}', {file} == Db.models.{file});" + '\n'
 
     with open(full, "w") as js:
         js.write(''.join(lines))
