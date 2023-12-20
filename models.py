@@ -17,7 +17,7 @@ total_models = len(models)
 
 
 def model(model, id):
-    capitalize = model.capitalize()
+    capitalize = model
     return f'''import {{Model, DataTypes, InferAttributes, InferCreationAttributes, ForeignKey}} from 'sequelize';
 import Database from '../Config/Db.config';
 
@@ -60,11 +60,11 @@ if len(sys.argv) > 2:
     file = sys.argv[1]
     id = sys.argv[2]
 
-    if f"{file}.models.ts" in models:
+    if f"{file}.model.ts" in models:
         print("Please make sure to write a model that is not included in model's folder.")
         exit()
 
-    with open(src_models+f"/{file.capitalize()}.models.ts", "w") as js:
+    with open(src_models+f"/{file}.model.ts", "w") as js:
         js.write(model(file, id))
     full = f"{src_config}/Db.migrations.ts"
     with open(full, "r") as js:
@@ -74,7 +74,7 @@ if len(sys.argv) > 2:
     migration_number = 5 + total_models
 
     lines[import_number -
-          1] += f'import {file} from "../Models/{file}.models";' + '\n'
+          1] += f'import {file} from "../Models/{file}.model";' + '\n'
     lines[migration_number -
           1] += f"\t\tconsole.log('{file}', {file} == Db.models.{file});" + '\n'
 
